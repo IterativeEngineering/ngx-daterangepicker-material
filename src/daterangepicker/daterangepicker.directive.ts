@@ -84,6 +84,8 @@ export class DaterangepickerDirective implements OnInit, OnChanges, OnDestroy {
     @Input()
     customRangeDirection: boolean;
     @Input()
+    blockRightCalendarByStartDate: boolean;
+    @Input()
     ranges = {};
     @Input()
     opens: 'left' | 'center' | 'right' = 'center';
@@ -245,6 +247,7 @@ export class DaterangepickerDirective implements OnInit, OnChanges, OnDestroy {
         this.componentRef.instance.showDropdowns = this.showDropdowns;
         this.componentRef.instance.showClearButton = this.showClearButton;
         this.componentRef.instance.customRangeDirection = this.customRangeDirection;
+        this.componentRef.instance.blockRightCalendarByStartDate = this.blockRightCalendarByStartDate;
         this.componentRef.instance.ranges = this.ranges;
         this.componentRef.instance.firstMonthDayClass = this.firstMonthDayClass;
         this.componentRef.instance.lastMonthDayClass = this.lastMonthDayClass;

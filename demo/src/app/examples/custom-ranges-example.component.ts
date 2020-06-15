@@ -23,6 +23,7 @@ import * as moment from 'moment';
                     [locale]="{ applyLabel: 'Done' }"
                     [keepCalendarOpeningWithRange]="form.get('keepCalendarOpeningWithRange').value"
                     [showRangeLabelOnInput]="form.get('showRangeLabelOnInput').value"
+                    [blockRightCalendarByStartDate]="form.get('blockRightCalendarByStartDate').value"
                     (rangeClicked)="rangeClicked($event)"
                     (datesUpdated)="datesUpdated($event)"
                 />
@@ -41,6 +42,11 @@ import * as moment from 'moment';
             <div>
                 <mat-checkbox formControlName="showRangeLabelOnInput">
                     showRangeLabelOnInput
+                </mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox formControlName="blockRightCalendarByStartDate">
+                    blockRightCalendarByStartDate
                 </mat-checkbox>
             </div>
         </form>
@@ -70,6 +76,7 @@ export class CustomRangesExampleComponent {
         alwaysShowCalendars: true,
         keepCalendarOpeningWithRange: true,
         showRangeLabelOnInput: true,
+        blockRightCalendarByStartDate: true
     });
 
     constructor(private formBuilder: FormBuilder) {}

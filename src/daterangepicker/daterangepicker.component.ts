@@ -142,6 +142,9 @@ export class DaterangepickerComponent implements OnInit, OnDestroy {
     customRangeDirection = false;
 
     @Input()
+    blockRightCalendarByStartDate: boolean = true;
+
+    @Input()
     isInvalidDate(date: _moment.Moment) {
         return false;
     }
@@ -478,7 +481,7 @@ export class DaterangepickerComponent implements OnInit, OnDestroy {
         //
         // Display the calendar
         //
-        const minDate = side === 'left' ? this.minDate : this.startDate;
+        const minDate = side === 'left' || !this.blockRightCalendarByStartDate ? this.minDate : this.startDate;
         let maxDate = this.maxDate;
         // adjust maxDate to reflect the dateLimit setting in order to
         // grey out end dates beyond the dateLimit
