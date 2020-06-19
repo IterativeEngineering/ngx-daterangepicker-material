@@ -118,6 +118,9 @@ export class DaterangepickerComponent implements OnInit {
     showRangeLabelOnInput = false;
     @Input()
     customRangeDirection = false;
+    @Input()
+    blockRightCalendarByStartDate = true
+    
     chosenRange: string;
     rangesArray: Array<any> = [];
 
@@ -425,7 +428,7 @@ export class DaterangepickerComponent implements OnInit {
         //
         // Display the calendar
         //
-        const minDate = side === 'left' ? this.minDate : this.startDate;
+        const minDate = side === 'left' || !this.blockRightCalendarByStartDate ? this.minDate : this.startDate;
         let maxDate = this.maxDate;
         // adjust maxDate to reflect the dateLimit setting in order to
         // grey out end dates beyond the dateLimit

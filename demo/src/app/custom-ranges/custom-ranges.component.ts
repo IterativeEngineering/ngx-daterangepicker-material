@@ -11,6 +11,9 @@ export class CustomRangesComponent implements OnInit {
   alwaysShowCalendars: boolean;
   showRangeLabelOnInput: boolean;
   keepCalendarOpeningWithRange: boolean;
+  blockRightCalendarByStartDate: boolean;
+  linkedCalendars: boolean;
+  
   maxDate: moment.Moment;
   minDate: moment.Moment;
   invalidDates: moment.Moment[] = [];
@@ -62,6 +65,8 @@ export class CustomRangesComponent implements OnInit {
     this.alwaysShowCalendars = true;
     this.keepCalendarOpeningWithRange = true;
     this.showRangeLabelOnInput = true;
+    this.blockRightCalendarByStartDate = true;
+    this.linkedCalendars = true;
     this.selected = {
       startDate: moment().subtract(1, 'days').set({hours: 0, minutes: 0}),
       endDate: moment().subtract(1, 'days').set({hours: 23, minutes: 59})

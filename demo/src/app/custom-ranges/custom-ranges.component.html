@@ -10,7 +10,7 @@
     [ranges]="ranges"
     [showClearButton]="true"
     [showCancel]="true"
-    [linkedCalendars]="true"
+    [linkedCalendars]="linkedCalendars"
     [isTooltipDate] = "isTooltipDate"
     [isInvalidDate] = "isInvalidDate"
     [locale]="{applyLabel: 'Done'}"
@@ -18,6 +18,7 @@
     (datesUpdated)="datesUpdated($event)"
     [keepCalendarOpeningWithRange]="keepCalendarOpeningWithRange"
     [showRangeLabelOnInput]="showRangeLabelOnInput"
+    [blockRightCalendarByStartDate]="blockRightCalendarByStartDate"                   
     class="form-control"
     placeholder="Select please..."/>
   </div>
@@ -39,7 +40,17 @@
       <label>
           <input type="checkbox" name="showRangeLabelOnInput" [(ngModel)]="showRangeLabelOnInput">
           <span>showRangeLabelOnInput: {{showRangeLabelOnInput}}</span>
-        </label>
+      </label>
+      <br>
+      <label>
+        <input type="checkbox" name="showRangeLabelOnInput" [(ngModel)]="blockRightCalendarByStartDate">
+        <span>blockRightCalendarByStartDate: {{blockRightCalendarByStartDate}}</span>
+    </label>
+      <br>
+      <label>
+        <input type="checkbox" name="linkedCalendars" [(ngModel)]="linkedCalendars">
+        <span>linkedCalendars: {{linkedCalendars}}</span>
+    </label>
   </div>
 </div>
 
@@ -55,7 +66,7 @@
   [linkedCalendars]="true"
   [isInvalidDate] = "isInvalidDate"
   [showClearButton]="true"
-
+  [blockRightCalendarByStartDate]="false"
   placeholder="Select please.../&gt;</code>
     </pre>
 
@@ -103,7 +114,10 @@ constructor() {{ '{' }}
                                   [locale]="{applyLabel: 'Done'}"
                                   [keepCalendarOpeningWithRange]="keepCalendarOpeningWithRange"
                                   [showRangeLabelOnInput]="showRangeLabelOnInput"
-                                  [locale]="{applyLabel: 'Done', firstDay: 1}"></ngx-daterangepicker-material>
+                                  [blockRightCalendarByStartDate]="blockRightCalendarByStartDate"
+                                  [locale]="{applyLabel: 'Done', firstDay: 1}"                              
+                                  [linkedCalendars]="linkedCalendars"
+      ></ngx-daterangepicker-material>
     <br>
     <p>Choosed date (after changes): {{inlineDateTime | json}}</p>
   </div>
