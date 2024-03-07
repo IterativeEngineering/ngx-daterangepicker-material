@@ -139,19 +139,14 @@
                 <div class="input-field">
                     <label for="dateStart">Date</label>
                     <input type="date" 
-                        disabled="true"
-                        class="disabled"
-                        [value]="dateStart | date:'yyyy-MM-dd'" 
-                        (input)="setDateInput($event, sideEnum.left)" 
-                        [max]="dateEnd | date:'yyyy-MM-dd'" />
+                    disabled="true"
+                    class="disabled"
+                    [value]="dateStart | date:'yyyy-MM-dd'" 
+                    (input)="setDateInput($event, sideEnum.left)" 
+                    [max]="dateEnd | date:'yyyy-MM-dd'" />
                 </div>
                 <div class="input-field">
-                    <label for="dateStart">Time</label>
-                    <input type="time"
-                        [disabled]="!startDate"
-                        [(ngModel)]="timeStart"
-                        (ngModelChange)="timeChanged($event, sideEnum.left)"
-                        />
+                    <ng-content select="[slot=start]"></ng-content>
                 </div>
             </div>
         </div>
@@ -282,12 +277,7 @@
                         [max]="maxDate.format('YYYY-MM-DD')" />    
                 </div>
                 <div class="input-field">
-                    <label for="dateStart">Time</label>
-                    <input type="time"
-                        [disabled]="!startDate"
-                        [(ngModel)]="timeEnd"
-                        (ngModelChange)="timeChanged($event, sideEnum.right)"
-                    />
+                    <ng-content select="[slot=end]"></ng-content>
                 </div>
             </div>
         </div>
