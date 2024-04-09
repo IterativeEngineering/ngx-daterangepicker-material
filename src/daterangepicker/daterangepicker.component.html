@@ -140,12 +140,10 @@
             <div class="select-content">
                 <div class="input-field">
                     <label for="dateStart">Date</label>
-                    <input type="date" 
+                    <input type="text" 
                     disabled="true"
                     class="disabled"
-                    [value]="dateStart | date:'yyyy-MM-dd'" 
-                    (input)="setDateInput($event, sideEnum.left)" 
-                    [max]="dateEnd | date:'yyyy-MM-dd'" />
+                    [value]="dateStart | date:'yyyy-MM-dd'" />
                 </div>
                 <div class="input-field">
                     <ng-content select="[slot=start]"></ng-content>
@@ -270,14 +268,11 @@
             <div class="select-content">
                 <div class="input-field">
                     <label for="dateStart">Date</label>
-                    <input type="date"
+                    <input type="text"
                         name="dateStart" 
                         disabled="true"
                         class="disabled"
-                        [value]="dateEnd | date:'yyyy-MM-dd'" 
-                        (input)="setDateInput($event, sideEnum.right)" 
-                        [min]="dateStart | date:'yyyy-MM-dd'" 
-                        [max]="maxDate.format('YYYY-MM-DD')" />    
+                        [value]="dateEnd | date:'yyyy-MM-dd'" />    
                 </div>
                 <div class="input-field">
                     <ng-content select="[slot=end]"></ng-content>
