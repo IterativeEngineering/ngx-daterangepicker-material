@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
+  ContentChild,
   ElementRef,
   EventEmitter,
   forwardRef,
@@ -10,6 +11,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
+  TemplateRef,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
@@ -266,6 +268,8 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
   @Output() cancelClicked: EventEmitter<void>;
   @Output() clearClicked: EventEmitter<void>;
   @ViewChild('pickerContainer', { static: true }) pickerContainer: ElementRef;
+
+  @ContentChild('startTimePicker', { read: TemplateRef }) startTimePicker: TemplateRef<any>;
 
   public chosenLabel: string;
 

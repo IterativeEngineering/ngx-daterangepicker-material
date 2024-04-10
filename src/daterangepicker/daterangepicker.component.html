@@ -135,22 +135,8 @@
                 </table>
             </div>
         </div>
-        <div class="timepicker" *ngIf="timePicker">
-            <div class="select-header">START: </div>
-            <div class="select-content">
-                <div class="input-field">
-                    <label for="dateStart">Date</label>
-                    <input type="date" 
-                    disabled="true"
-                    class="disabled"
-                    [value]="dateStart | date:'yyyy-MM-dd'" 
-                    (input)="setDateInput($event, sideEnum.left)" 
-                    [max]="dateEnd | date:'yyyy-MM-dd'" />
-                </div>
-                <div class="input-field">
-                    <ng-content select="[slot=start]"></ng-content>
-                </div>
-            </div>
+        <div class="timepicker d-none d-md-flex" *ngIf="timePicker">
+            <ng-container [ngTemplateOutlet]="startTimePickerTpl"></ng-container>
         </div>
     </div>
 
@@ -265,22 +251,24 @@
                 </table>
             </div>
         </div>
-        <div class="timepicker" *ngIf="timePicker">
-            <div class="select-header">END: </div>
-            <div class="select-content">
-                <div class="input-field">
-                    <label for="dateStart">Date</label>
-                    <input type="date"
-                        name="dateStart" 
-                        disabled="true"
-                        class="disabled"
-                        [value]="dateEnd | date:'yyyy-MM-dd'" 
-                        (input)="setDateInput($event, sideEnum.right)" 
-                        [min]="dateStart | date:'yyyy-MM-dd'" 
-                        [max]="maxDate.format('YYYY-MM-DD')" />    
-                </div>
-                <div class="input-field">
-                    <ng-content select="[slot=end]"></ng-content>
+        <div class="d-flex justify-content-between">
+            <div class="timepicker d-md-none" *ngIf="timePicker">
+                <ng-container [ngTemplateOutlet]="startTimePickerTpl"></ng-container>
+            </div>
+            <div class="timepicker" *ngIf="timePicker">
+                <div class="select-header">END: </div>
+                <div class="select-content">
+                    <div class="input-field">
+                        <label for="dateStart">Date</label>
+                        <input type="text"
+                            name="dateStart" 
+                            disabled="true"
+                            class="disabled"
+                            [value]="dateEnd | date:'yyyy-MM-dd'" />    
+                    </div>
+                    <div class="input-field">
+                        <ng-content select="[slot=end]"></ng-content>
+                    </div>
                 </div>
             </div>
         </div>
@@ -299,3 +287,19 @@
         </div>
     </div>
 </div>
+
+<ng-template #startTimePickerTpl>
+    <div class="select-header">START: </div>
+        <div class="select-content">
+            <div class="input-field">
+                <label for="dateStart">Date</label>
+                <input type="text" 
+                disabled="true"
+                class="disabled"
+                [value]="dateStart | date:'yyyy-MM-dd'" />
+            </div>
+            <div class="input-field">
+                <ng-container *ngTemplateOutlet="startTimePicker"></ng-container>
+            </div>
+        </div>
+</ng-template>
