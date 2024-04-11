@@ -255,7 +255,7 @@
             <div class="timepicker d-md-none" *ngIf="timePicker">
                 <ng-container [ngTemplateOutlet]="startTimePickerTpl"></ng-container>
             </div>
-            <div class="timepicker" *ngIf="timePicker">
+            <div class="timepicker flex-grow-1" *ngIf="timePicker">
                 <div class="select-header">END: </div>
                 <div class="select-content">
                     <div class="input-field">
@@ -263,7 +263,7 @@
                         <input type="text"
                             name="dateStart" 
                             disabled="true"
-                            class="disabled"
+                            class="disabled o-1"
                             [value]="dateEnd | date:'yyyy-MM-dd'" />    
                     </div>
                     <div class="input-field">
@@ -295,7 +295,7 @@
                 <label for="dateStart">Date</label>
                 <input type="text" 
                 disabled="true"
-                class="disabled"
+                class="disabled o-1"
                 [value]="dateStart | date:'yyyy-MM-dd'" />
             </div>
             <div class="input-field">
