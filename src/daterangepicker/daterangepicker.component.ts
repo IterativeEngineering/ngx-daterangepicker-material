@@ -1650,4 +1650,8 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
       this.calendarVariables[side].classes[row].classList = rowClasses.join(' ');
     }
   }
+
+  setCustomRange() {
+    this.chosenRange = this.locale.customRangeLabel;
+  }
 }
