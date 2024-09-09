@@ -295,3 +295,4 @@ Run `npm test` or `ng test` to run tests.
 
 ## [License](https://github.com/fetrarij/ngx-daterangepicker-material/blob/master/LICENSE)
 MIT
+
