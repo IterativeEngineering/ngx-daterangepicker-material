@@ -55,6 +55,8 @@ $md-drppicker-control-active-border-color:  #08c !default;
 $md-drppicker-control-active-border-radius: $md-drppicker-control-border-radius !default;
 
 $md-drppicker-control-disabled-color:       #ccc !default;
+
+$adscore-neutral-lightest: #f5f7fa;
 // Select
 $select-border: 1px solid #f2f2f2 !default;
 $select-background: rgba(255, 255, 255, 0.90) !default;
@@ -485,19 +487,27 @@ $input-height: 3rem !default;
       .input-field {
         position: relative;
         margin-top: 0.75rem;
+        background-color: mix($adscore-neutral-lightest, black, 95%);
+        border: 1px solid #BFC6CA;
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        input {
+          border: none;
+          padding-left: 8px;
+        }
+        svg {
+          width: 18px;
+        }
       }
     }
 
     input {
       $adscore-primary: #962431;
-      $adscore-neutral-lightest: #f5f7fa;
       $adscore-neutral-lighter: mix($adscore-neutral-lightest, black, 94%);
       $adscore-secondary: #032336;
       $adscore-secondary-lighter: mix($adscore-secondary, white, 57%);
       $adscore-grey-text: #6f828c;
-
-      background-color: mix($adscore-neutral-lightest, black, 95%);
-      border: 1px solid $adscore-neutral-lighter;
       border-radius: 0;
       box-shadow: none;
       color: $adscore-secondary;
@@ -506,7 +516,6 @@ $input-height: 3rem !default;
 
       line-height: 1rem;
       outline: 0 !important;
-      padding: 1.5rem 0.5rem 0.5rem;
       width: 100%;
       -webkit-appearance: none;
       appearance: none;
