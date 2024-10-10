@@ -1285,9 +1285,13 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
     } else {
       // picking end
       if (this.timePicker) {
-        date = this.getDateWithTime(date, SideEnum.right);
+        if (this.customTimezone) {
+          date = this.getDateWithTime(date, SideEnum.right).tz(this.customTimezone, true);
+        } else {
+          date = this.getDateWithTime(date, SideEnum.right);
+        }
       }
-      if (date.isBefore(this.startDate, 'day') === true && this.customRangeDirection === true) {
+      if (date.isBefore(this.startDate) === true && this.customRangeDirection === true) {
         const newStart = this.getDateWithTime(date, SideEnum.left);
         const newEnd = this.getDateWithTime(this.startDate, SideEnum.right);
         this.setStartDate(newStart);
