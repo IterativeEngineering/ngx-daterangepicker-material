@@ -17,7 +17,7 @@
                 <li *ngFor="let range of rangesArray">
                     <button
                         type="button"
-                        (click)="clickRange($event, range)"
+                        (click)="clickRange(range)"
                         [disabled]="disableRange(range)"
                         [ngClass]="{ active: range === chosenRange }">
                         {{ range }}

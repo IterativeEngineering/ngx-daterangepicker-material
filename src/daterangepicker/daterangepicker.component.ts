@@ -1326,10 +1326,9 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
   /**
    *  Click on the custom range
    *
-   * @param e: Event
    * @param label
    */
-  clickRange(e: MouseEvent, label: string): void {
+  clickRange(label: string): void {
     this.maxDate = this.maxDate.endOf('day');
     this.chosenRange = label;
     if (label === this.locale.customRangeLabel) {
