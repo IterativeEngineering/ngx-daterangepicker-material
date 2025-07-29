@@ -280,7 +280,6 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
   timeEnd: any
   dateStart: Date
   dateEnd: Date
-  lelo: string = "2011-04-12"
   daterangepicker: { start: FormControl; end: FormControl } = { start: new FormControl(), end: new FormControl() };
 
   public applyBtn: { disabled: boolean } = { disabled: false };
