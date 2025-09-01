@@ -881,18 +881,6 @@ export class DaterangepickerComponent implements OnInit, OnChanges {
 
   updateMonthsInView(): void {
     if (this.endDate) {
-      // if both dates are visible already, do nothing
-      if (
-        !this.singleDatePicker &&
-        this.leftCalendar.month &&
-        this.rightCalendar.month &&
-        ((this.startDate && this.leftCalendar && this.startDate.format('YYYY-MM') === this.leftCalendar.month.format('YYYY-MM')) ||
-          (this.startDate && this.rightCalendar && this.startDate.format('YYYY-MM') === this.rightCalendar.month.format('YYYY-MM'))) &&
-        (this.endDate.format('YYYY-MM') === this.leftCalendar.month.format('YYYY-MM') ||
-          this.endDate.format('YYYY-MM') === this.rightCalendar.month.format('YYYY-MM'))
-      ) {
-        return;
-      }
       if (this.startDate) {
         this.leftCalendar.month = this.startDate.clone().date(2);
         if (!this.linkedCalendars && (this.endDate.month() !== this.startDate.month() || this.endDate.year() !== this.startDate.year())) {
