@@ -4,10 +4,6 @@ on:
   push:
     branches: [master]
 
-concurrency:
-  group: release-master
-  cancel-in-progress: false
-
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -25,45 +21,17 @@ jobs:
       - run: npm ci
       - run: npm run build
       - name: Publish GitHub release
+        working-directory: dist
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          if git tag --points-at HEAD | grep -q .; then
-            echo "This commit is already tagged." >> "$GITHUB_STEP_SUMMARY"
+          version=$(node -p "require('./package.json').version")
+          tag="v${version}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release ${tag} already exists. Bump package.json to publish a new tarball." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
-
-          # package.json stays on 6.0.4; published builds are v6.0.4-extend-N tarballs
-          version=$(node -p "require('./dist/package.json').version")
-          name=$(node -p "require('./dist/package.json').name")
-          prefix="v${version}-extend"
-          max=0
-          while IFS= read -r tag; do
-            [ -n "$tag" ] || continue
-            case "$tag" in
-              "$prefix") n=1 ;;
-              "$prefix"-*) n=${tag#"$prefix"-} ;;
-              *) continue ;;
-            esac
-            case "$n" in
-              ""|*[!0-9]*) continue ;;
-            esac
-            if [ "$n" -gt "$max" ]; then
-              max=$n
-            fi
-          done < <(gh api --paginate "repos/${GITHUB_REPOSITORY}/git/matching-refs/tags/${prefix}" --jq '.[].ref | sub("refs/tags/"; "")')
-
-          next=$((max + 1))
-          if [ "$next" -eq 1 ]; then
-            release_version="${version}-extend"
-          else
-            release_version="${version}-extend-${next}"
-          fi
-          tag="v${release_version}"
-
-          packed=$(cd dist && npm pack --json | node -e 'let s="";process.stdin.on("data",d=>s+=d);process.stdin.on("end",()=>{const j=JSON.parse(s); const item=Array.isArray(j)?j[j.length-1]:j; process.stdout.write(item.filename);})')
-          asset="$RUNNER_TEMP/${name}-${release_version}.tgz"
-          mv "dist/${packed}" "$asset"
-          gh release create "$tag" "$asset" --title "$tag" --generate-notes
+          packed=$(npm pack --json | node -e 'let s="";process.stdin.on("data",d=>s+=d);process.stdin.on("end",()=>{const j=JSON.parse(s); const item=Array.isArray(j)?j[j.length-1]:j; process.stdout.write(item.filename);})')
+          gh release create "$tag" "$packed" --title "$tag" --generate-notes
           echo "Published ${tag}" >> "$GITHUB_STEP_SUMMARY"
