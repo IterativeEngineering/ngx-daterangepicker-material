@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import dayjs from 'dayjs/esm';
-import utc from '../../../../plugin-overrides/utc'
+import utc from '../../../../plugin-overrides/utc';
 import * as fr from 'dayjs/locale/fr';
-import { DaterangepickerDirective } from '../../../../src/daterangepicker';
 dayjs.extend(utc);
 
 @Component({
@@ -14,7 +13,6 @@ export class LocaleComponent implements OnInit {
   selected: { startDate: dayjs.Dayjs; endDate: dayjs.Dayjs };
   locale = fr;
   constructor() {}
-
 
   ngOnInit(): void {}
 }

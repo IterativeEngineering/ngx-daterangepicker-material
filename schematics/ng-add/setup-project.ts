@@ -34,7 +34,11 @@ function addDateRangePickerModule(options: any) {
     return (host: Tree) => {
         (async () => {
             const workspace = await getWorkspace(host);
-            const project = getProjectFromWorkspace(workspace, options.project);
+            // @schematics/angular and @angular/cdk ship separate copies of the workspace types.
+            const project = getProjectFromWorkspace(
+                workspace as unknown as Parameters<typeof getProjectFromWorkspace>[0],
+                options.project
+            );
 
             addModuleImportToRootModule(host, moduleName + '.forRoot()', 'ngx-daterangepicker-material', project);
         })();

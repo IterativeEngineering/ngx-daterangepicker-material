@@ -1,39 +1,69 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
-
-name: Node.js Package
+name: Release
 
 on:
-  release:
-    types: [created]
+  push:
+    branches: [master]
+
+concurrency:
+  group: release-master
+  cancel-in-progress: false
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm ci
-      - run: npm test
-
-  publish-gpr:
-    needs: build
+  release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      packages: write
+      contents: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v6.0.3
         with:
-          node-version: 16
-          registry-url: https://npm.pkg.github.com/
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: actions/setup-node@v6.4.0
+        with:
+          node-version: 14
+          cache: npm
       - run: npm ci
-      - run: |
-          npm run build
-          cd dist/
-          npm publish
+      - run: npm run build
+      - name: Publish GitHub release
         env:
-          NODE_AUTH_TOKEN: ${{secrets.PERSONAL_TOKEN}}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if git tag --points-at HEAD | grep -q .; then
+            echo "This commit is already tagged." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          # package.json stays on 6.0.4; published builds are v6.0.4-extend-N tarballs
+          version=$(node -p "require('./dist/package.json').version")
+          name=$(node -p "require('./dist/package.json').name")
+          prefix="v${version}-extend"
+          max=0
+          while IFS= read -r tag; do
+            [ -n "$tag" ] || continue
+            case "$tag" in
+              "$prefix") n=1 ;;
+              "$prefix"-*) n=${tag#"$prefix"-} ;;
+              *) continue ;;
+            esac
+            case "$n" in
+              ""|*[!0-9]*) continue ;;
+            esac
+            if [ "$n" -gt "$max" ]; then
+              max=$n
+            fi
+          done < <(gh api --paginate "repos/${GITHUB_REPOSITORY}/git/matching-refs/tags/${prefix}" --jq '.[].ref | sub("refs/tags/"; "")')
+
+          next=$((max + 1))
+          if [ "$next" -eq 1 ]; then
+            release_version="${version}-extend"
+          else
+            release_version="${version}-extend-${next}"
+          fi
+          tag="v${release_version}"
+
+          packed=$(cd dist && npm pack --json | node -e 'let s="";process.stdin.on("data",d=>s+=d);process.stdin.on("end",()=>{const j=JSON.parse(s); const item=Array.isArray(j)?j[j.length-1]:j; process.stdout.write(item.filename);})')
+          asset="$RUNNER_TEMP/${name}-${release_version}.tgz"
+          mv "dist/${packed}" "$asset"
+          gh release create "$tag" "$asset" --title "$tag" --generate-notes
+          echo "Published ${tag}" >> "$GITHUB_STEP_SUMMARY"
