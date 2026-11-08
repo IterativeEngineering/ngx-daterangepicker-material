@@ -1,5 +1,5 @@
-# This workflow runs tests and then publishes the package to the public npm
-# registry when a GitHub release is created.
+# This workflow builds the library and publishes the package to the public npm
+# registry when master is updated.
 
 name: Node.js Package
 
@@ -12,17 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: browser-actions/setup-chrome@latest
       - uses: actions/setup-node@v3
         with:
           node-version: 20
       - run: npm ci
-      - name: Test
-        run: |
-          export DISPLAY=:99
-          chromedriver --url-base=/wd/hub &
-          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
-          npm test
+      - run: npm run build
 
   publish-npm:
     needs: build

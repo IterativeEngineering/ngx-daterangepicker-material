@@ -20,8 +20,6 @@ This `Angular Material` plugin is compatible with Angular 2+ and is Ivy compatib
 
 ![](screen.png)
 
-Demo: https://fetrarij.github.io/ngx-daterangepicker-material/
-
 ---
 
 ## Versions
@@ -107,8 +105,6 @@ Typescript:
 ````typescript
 selected: {start: Dayjs, end: Dayjs};
 ````
-You can [play with our online demo here](https://fetrarij.github.io/ngx-daterangepicker-material/)
-and [browse our demo code here](./demo/src/app).
 
 ## Inline usage
 
@@ -308,16 +304,9 @@ eg:
 
 Install local dependencies: `npm install`.
 
-### Development server
+### Build
 
-Run `npm start` to start a development server on a port 4200.
-
-Open `http//:localhost:4200` on your browser.
-
-## Tests
-
-Run `npm test` or `ng test` to run tests.
-
+Run `npm run build` to compile the library into `dist`.
 
 ## [License](https://github.com/fetrarij/ngx-daterangepicker-material/blob/master/LICENSE)
 MIT
