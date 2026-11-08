@@ -63,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngx-daterangepicker-material:build"
+            "buildTarget": "ngx-daterangepicker-material:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngx-daterangepicker-material:build:production"
+              "buildTarget": "ngx-daterangepicker-material:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngx-daterangepicker-material:build"
+            "buildTarget": "ngx-daterangepicker-material:build"
           }
         },
         "test": {
@@ -84,6 +84,7 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "demo/src/polyfills.ts",
             "tsConfig": "demo/src/tsconfig.spec.json",
+            "include": ["**/*.spec.ts", "../../src/**/*.spec.ts"],
             "scripts": [],
             "styles": [
               "demo/src/styles.scss"
@@ -109,17 +110,38 @@
       }
     }
   },
-  "defaultProject": "ngx-daterangepicker-material",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "",
-      "style": "scss"
+      "style": "scss",
+      "type": "component"
     },
     "@schematics/angular:directive": {
-      "prefix": ""
+      "prefix": "",
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
   },
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

@@ -1,3 +1,13 @@
+Syncing fork with the original repo:
+
+1. Add remote:
+`git remote add fetrarij https://github.com/fetrarij/ngx-daterangepicker-material`
+2. `git fetch fetrarij`
+3. Find the version to merge on https://github.com/fetrarij/ngx-daterangepicker-material/releases
+4. `git merge [tag] --squash --allow-unrelated-histories`
+5. Resolve conflicts by accepting incoming changes, except for our custom behavior
+6. Commit that result as one commit on the fork
+
 # ngx-daterangepicker-material
 
 > Angular 2+ Date range picker.
@@ -18,11 +28,17 @@ Demo: https://fetrarij.github.io/ngx-daterangepicker-material/
 
 | Angular| ngx-daterangepicker-material|
 | ------|:------:|
-| >=12.0.0  | v6.x.x |
+| 20.x.x  | v20.x.x |
+| 19.x.x  | v19.x.x |
+| 17.x.x  | v17.x.x |
+| 16.x.x  | v16.x.x |
+| 12.0.0 - 15.x.x  | v6.x.x |
 | <=11.0.0  | v5.x.x |
 | >=9.0.0  | v4.x.x |
 | <9.0.0  | v2.x.x |
 | ~~>=9.0.0 depends on @angular/material~~ |~~v3.x~~ |
+
+Since v16, the package's major version tracks the Angular major version it supports
 
 ---
 
@@ -31,6 +47,16 @@ Demo: https://fetrarij.github.io/ngx-daterangepicker-material/
  Install the plugin from npm:
 
  `npm install ngx-daterangepicker-material --save` .
+
+ This library depends on `dayjs`, which requires `esModuleInterop` (or `allowSyntheticDefaultImports`)
+ to be enabled in your `tsconfig.json`:
+ ```json
+ {
+   "compilerOptions": {
+     "esModuleInterop": true
+   }
+ }
+ ```
 
  import **NgxDaterangepickerMd** in your module:
 

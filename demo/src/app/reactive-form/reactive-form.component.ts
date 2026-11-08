@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import dayjs from 'dayjs/esm';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocaleConfig } from '../../../../src/daterangepicker';
 
 @Component({
+  standalone: false,
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'reactive-form',
   templateUrl: './reactive-form.component.html'
 })
 export class ReactiveFormComponent {
+  private fb = inject(FormBuilder);
+
   form: FormGroup;
   form2: FormGroup;
   locale: LocaleConfig = {
@@ -16,7 +19,7 @@ export class ReactiveFormComponent {
     displayFormat: 'YYYY-MM-DD'
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     this.form = this.fb.group({
       selected: [
         {
