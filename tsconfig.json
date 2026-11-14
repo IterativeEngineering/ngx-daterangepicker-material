@@ -4,7 +4,7 @@
         "importHelpers": true,
         "target": "es2020",
         "module": "es2020",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
@@ -15,7 +15,6 @@
         "declaration": true,
         "sourceMap": false,
         "outDir": "dist",
-        "lib": ["es2020", "dom"],
         "baseUrl": "./",
         "types": ["node"]
     },
